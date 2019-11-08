@@ -1,0 +1,7 @@
+package epg.server.repository;
+
+// public interface OrderRepository extends JpaRepository<Order, Long> {}
+// emulation
+public interface OrderRepository {
+    Order getById(Long id);
+}

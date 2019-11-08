@@ -1,0 +1,23 @@
+package epg.protocol.dto.programguide;
+
+import epg.protocol.dto.base.jrpc.AbstractDto;
+
+public class ProgramGuideResponseDto extends AbstractDto {
+    private ProgramGuideDto programGuide;
+
+    public ProgramGuideResponseDto(ProgramGuideDto programGuide) {
+        this.programGuide = programGuide;
+    }
+
+    public static ProgramGuideResponseDto wrap(ProgramGuideDto programGuide) {
+        return new ProgramGuideResponseDto(programGuide);
+    }
+
+    public ProgramGuideDto getProgramGuide() {
+        return programGuide;
+    }
+
+    public void setProgramGuide(ProgramGuideDto programGuide) {
+        this.programGuide = programGuide;
+    }
+}

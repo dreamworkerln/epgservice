@@ -1,0 +1,13 @@
+package epg.server.handlers.product;
+
+
+import epg.server.configuration.SpringConfiguration;
+import epg.server.handlers.base.JrpcController;
+import org.springframework.stereotype.Component;
+
+@Component
+@JrpcController(path = SpringConfiguration.MAIN_ENTITIES_PATH + "product")
+public class ProductHandler {
+
+
+}
