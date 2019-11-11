@@ -26,6 +26,7 @@ hs_err_pid*
 
 #test data
 /data/
+/epg-server/data/
 
 # idea projecs an other trash
 *.iml

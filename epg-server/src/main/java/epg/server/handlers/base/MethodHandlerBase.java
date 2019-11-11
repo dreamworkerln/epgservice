@@ -15,7 +15,7 @@ public abstract class MethodHandlerBase /*JrpcMethodHandler*/ {
 
 
     @Autowired
-    private final void setObjectMapper(ObjectMapper objectMapper) {
+    private void setObjectMapper(ObjectMapper objectMapper) {
         this.objectMapper = objectMapper;
     }
 

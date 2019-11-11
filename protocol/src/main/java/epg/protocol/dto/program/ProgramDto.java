@@ -2,7 +2,6 @@ package epg.protocol.dto.program;
 
 import epg.protocol.dto.base.jrpc.AbstractDto;
 
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,15 +9,15 @@ public class ProgramDto extends AbstractDto {
 
     //private String date;
     private Integer channelId; // channelId
-    private Instant start;
-    private Instant stop;
+    private Long start;
+    private Long stop;
     private String title;
     private String description;
     private CreditsDto credits;
 
     private List<String> country = new ArrayList<>();
     private Integer dvbgenre; // hex-notation
-    private Integer raiting;
+    private Integer rating;
     private List<IconDto> iconList = new ArrayList<>();
 
 
@@ -30,19 +29,19 @@ public class ProgramDto extends AbstractDto {
         this.channelId = channelId;
     }
 
-    public Instant getStart() {
+    public Long getStart() {
         return start;
     }
 
-    public void setStart(Instant start) {
+    public void setStart(Long start) {
         this.start = start;
     }
 
-    public Instant getStop() {
+    public Long getStop() {
         return stop;
     }
 
-    public void setStop(Instant stop) {
+    public void setStop(Long stop) {
         this.stop = stop;
     }
 
@@ -86,12 +85,12 @@ public class ProgramDto extends AbstractDto {
         this.dvbgenre = dvbgenre;
     }
 
-    public Integer getRaiting() {
-        return raiting;
+    public Integer getRating() {
+        return rating;
     }
 
-    public void setRaiting(Integer raiting) {
-        this.raiting = raiting;
+    public void setRating(Integer rating) {
+        this.rating = rating;
     }
 
     public List<IconDto> getIconList() {

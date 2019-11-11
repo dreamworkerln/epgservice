@@ -1,3 +1,4 @@
 package epg.server.entities.programguide;
 
+// not used
 public class ChannelList {}

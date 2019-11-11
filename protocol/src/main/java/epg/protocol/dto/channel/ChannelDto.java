@@ -13,7 +13,7 @@ public class ChannelDto extends AbstractDto {
 
     private String name;
 
-    private Map<Instant,ProgramDto> programList = new TreeMap<>();
+    private Map<Long,ProgramDto> programList = new TreeMap<>();
 
     protected ChannelDto() {}
 
@@ -38,11 +38,11 @@ public class ChannelDto extends AbstractDto {
         this.name = name;
     }
 
-    public Map<Instant, ProgramDto> getProgramList() {
+    public Map<Long, ProgramDto> getProgramList() {
         return programList;
     }
 
-    public void setProgramList(Map<Instant, ProgramDto> programList) {
+    public void setProgramList(Map<Long, ProgramDto> programList) {
         this.programList = programList;
         // set program owner
         programList.values().forEach(p -> p.setChannelId(this.id));

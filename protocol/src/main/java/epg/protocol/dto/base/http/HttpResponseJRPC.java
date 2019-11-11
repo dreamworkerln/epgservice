@@ -1,5 +1,7 @@
 package epg.protocol.dto.base.http;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import epg.protocol.dto.base.jrpc.AbstractDto;
 import epg.protocol.dto.base.jrpc.JrpcData;
 
 /**
@@ -7,19 +9,20 @@ import epg.protocol.dto.base.jrpc.JrpcData;
  */
 public class HttpResponseJRPC extends HttpResponse {
 
-    protected JrpcData result;
+    protected AbstractDto result;
 
     public HttpResponseJRPC() {}
 
-    public HttpResponseJRPC(JrpcData result) {
+    public HttpResponseJRPC(AbstractDto result) {
         this.result = result;
     }
 
-    public JrpcData getResult() {
+    public AbstractDto getResult() {
         return result;
     }
 
-    public void setResult(JrpcData result) {
+    public void setResult(AbstractDto result) {
         this.result = result;
     }
+
 }

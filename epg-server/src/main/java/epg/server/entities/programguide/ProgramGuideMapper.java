@@ -1,5 +1,6 @@
 package epg.server.entities.programguide;
 
+import epg.protocol.dto.channel.ChannelDto;
 import epg.protocol.dto.programguide.ProgramGuideDto;
 import epg.server.entities.base.mapper.AbstractMapper;
 import org.modelmapper.TypeMap;
@@ -17,14 +18,13 @@ public class ProgramGuideMapper extends AbstractMapper<ProgramGuide, ProgramGuid
     @PostConstruct
     protected void setupMapper() {
 
-        //
-
-        TypeMap<ProgramGuide, ProgramGuideDto> typeMap =
-
                 mapper.createTypeMap(ProgramGuide.class, ProgramGuideDto.class).addMappings(
                         // назначаем маппинг полей (для final типов map полей нельзя указывать - не поддерживается блевотекой)
                         // соответственно отключаем маппинг для полей, которые не совпадают по типам
                         mapper -> {
+
+                            //mapper.skip(ProgramGuideDto::setChannelList);
+
                             //mapper.skip(OrderDto::setDate);
                             // такие типы (поля) конвертируются потом отдельно в пост-конвертере, конкретно тут - в mapSpecificFields
                         }).setPostConverter(getToDtoConverter());
@@ -34,20 +34,23 @@ public class ProgramGuideMapper extends AbstractMapper<ProgramGuide, ProgramGuid
                 mapper -> {
                     //mapper.skip(Order::setDate);
                 }).setPostConverter(getToEntityConverter());
-
-
     }
 
     @Override
     protected void mapSpecificFields(ProgramGuide source, ProgramGuideDto destination) {
         //destination.setDate(source.getDate().getEpochSecond());
+
+//        source.getChannelList().forEach((i, ch) -> {
+//
+//            ChannelDto chd = new ChannelDto(i, ch.getName());
+//            destination.getChannelList().put(i, chd);
+//        });
+
     }
 
     @Override
     protected void mapSpecificFields(ProgramGuideDto source, ProgramGuide destination) {
         //destination.setDate(Instant.ofEpochSecond(source.getDate()));
-
-        System.out.println("Один один один");
     }
 
 }

@@ -2,7 +2,7 @@ package epg.protocol.dto.base.jrpc;
 
 import java.io.Serializable;
 
-public abstract class AbstractDto extends JrpcData implements Serializable {
+public abstract class AbstractDto implements Serializable {
 
 }
 

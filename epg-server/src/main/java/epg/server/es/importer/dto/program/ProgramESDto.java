@@ -1,5 +1,6 @@
 package epg.server.es.importer.dto.program;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import epg.protocol.dto.base.jrpc.AbstractDto;
 
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ public class ProgramESDto extends AbstractDto {
     private String date;
     private List<TextLangESDto> country = new ArrayList<> ();
     private String dvbgenre;
-    private RatingESDto raiting;
+    private RatingESDto rating;
     private List<IconESDto> iconList = new ArrayList<> ();
     private String start;
     private String stop;
@@ -47,7 +48,7 @@ public class ProgramESDto extends AbstractDto {
     }
 
     public RatingESDto getRating() {
-        return raiting;
+        return rating;
     }
 
     public String getStart() {
@@ -93,7 +94,7 @@ public class ProgramESDto extends AbstractDto {
     }
 
     public void setRating(RatingESDto ratingESDto) {
-        this.raiting = ratingESDto;
+        this.rating = ratingESDto;
     }
 
     public void setStart(String start) {
@@ -121,7 +122,7 @@ public class ProgramESDto extends AbstractDto {
                ", date='" + date + '\'' +
                ", country=" + country +
                ", dvbgenre='" + dvbgenre + '\'' +
-               ", raiting=" + raiting +
+               ", rating=" + rating +
                ", iconList=" + iconList +
                ", start='" + start + '\'' +
                ", stop='" + stop + '\'' +

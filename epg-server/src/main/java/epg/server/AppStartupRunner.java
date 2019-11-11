@@ -26,6 +26,7 @@ public class AppStartupRunner implements ApplicationRunner, Closeable {
     @Override
     public void run(ApplicationArguments args) throws Exception {
 
+        // Importing local.json
         String json = new String(Files.readAllBytes(Paths.get("data/local.json")), StandardCharsets.UTF_8);
         importer.process(json);
     }

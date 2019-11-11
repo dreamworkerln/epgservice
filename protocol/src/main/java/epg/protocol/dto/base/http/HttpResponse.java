@@ -1,5 +1,7 @@
 package epg.protocol.dto.base.http;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import epg.protocol.dto.base.Message;
 import org.springframework.http.HttpStatus;
 
@@ -25,7 +27,7 @@ public class HttpResponse extends Message {
     }
 
 
-    public HttpResponse() {}
+    HttpResponse() {}
 
 
     public HttpResponse(HttpStatus status) {

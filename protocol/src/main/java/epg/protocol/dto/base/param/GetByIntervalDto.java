@@ -8,31 +8,31 @@ import java.time.Instant;
 
 @Component
 @Scope("prototype")
-public class GetByInterval extends AbstractDto {
+public class GetByIntervalDto extends AbstractDto {
 
-    private Instant start;
-    private Instant end;
+    private Long start;
+    private Long end;
 
-    protected GetByInterval() {}
+    protected GetByIntervalDto() {}
 
-    public GetByInterval(Instant start, Instant end) {
+    public GetByIntervalDto(Long start, Long end) {
         this.start = start;
         this.end = end;
     }
 
-    public Instant getStart() {
+    public Long getStart() {
         return start;
     }
 
-    public void setStart(Instant start) {
+    public void setStart(Long start) {
         this.start = start;
     }
 
-    public Instant getEnd() {
+    public Long getEnd() {
         return end;
     }
 
-    public void setEnd(Instant end) {
+    public void setEnd(Long end) {
         this.end = end;
     }
 }

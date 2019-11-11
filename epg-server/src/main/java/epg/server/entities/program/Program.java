@@ -20,7 +20,7 @@ public class Program extends AbstractEntity {
 
     private List<String> country = new ArrayList<>();
     private Integer dvbgenre; // hex-notation
-    private Integer raiting;
+    private Integer rating;
     private List<Icon> iconList = new ArrayList<>();
 
 
@@ -90,12 +90,12 @@ public class Program extends AbstractEntity {
         this.dvbgenre = dvbgenre;
     }
 
-    public Integer getRaiting() {
-        return raiting;
+    public Integer getRating() {
+        return rating;
     }
 
-    public void setRaiting(Integer raiting) {
-        this.raiting = raiting;
+    public void setRating(Integer rating) {
+        this.rating = rating;
     }
 
     public List<Icon> getIconList() {

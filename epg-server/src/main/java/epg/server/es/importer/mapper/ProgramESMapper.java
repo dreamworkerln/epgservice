@@ -6,7 +6,6 @@ import epg.server.entities.program.Icon;
 import epg.server.entities.program.IconType;
 import epg.server.entities.program.Program;
 import epg.server.entities.programguide.ProgramGuide;
-import epg.server.es.importer.dto.program.IconESDto;
 import epg.server.es.importer.dto.program.ProgramESDto;
 import epg.server.es.importer.dto.program.TextLangESDto;
 import epg.server.repository.ProgramGuideRepository;
@@ -18,9 +17,7 @@ import org.springframework.util.Assert;
 import javax.annotation.PostConstruct;
 import java.time.Instant;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -54,7 +51,7 @@ public class ProgramESMapper extends AbstractMapper<Program, ProgramESDto> {
                     mapper.skip(Program::setDvbgenre);
                     mapper.skip(Program::setTitle);
                     mapper.skip(Program::setDescription);
-                    mapper.skip(Program::setRaiting);
+                    mapper.skip(Program::setRating);
                     mapper.skip(Program::setCountry);
                     mapper.skip(Program::setIconList);
                     mapper.skip(Program::setStart);
@@ -97,7 +94,7 @@ public class ProgramESMapper extends AbstractMapper<Program, ProgramESDto> {
         
         // raiting
         if (Objects.nonNull(source.getRating())) {
-            destination.setRaiting(Integer.parseInt(source.getRating().getValue()));
+            destination.setRating(Integer.parseInt(source.getRating().getValue()));
         }
 
         // country

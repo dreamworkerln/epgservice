@@ -3,6 +3,7 @@ package epg.server.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import epg.protocol.dto.base.jrpc.AbstractDto;
 import epg.protocol.dto.base.jrpc.JrpcData;
 import epg.protocol.dto.base.jrpc.JrpcRequestHeader;
 import epg.protocol.dto.base.http.HttpResponse;
@@ -70,10 +71,16 @@ public class ApiController {
         Long id = null;
 
         // json-rpc response
-        JrpcData jrpcData;
+        AbstractDto jrpcResponse;
 
         // http response
         HttpResponse httpResponse;
+
+        // result json string
+        String result;
+
+        // result status
+        HttpStatus httpStatus;
 
         log.trace("POST '/api': " + json);
 
@@ -119,29 +126,19 @@ public class ApiController {
             // ------------------------------------------------------------------------------
             //objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, true);
 
-            JsonNode params = objectMapper.readTree(json).get("params");
-
-//            if (params == null) {
-//                throw new IllegalArgumentException("JRPC params==null");
-//            }
+            JsonNode jrpcParams = objectMapper.readTree(json).get("params");
 
             // ------------------------------------------------------------------------------
 
 
             JrpcMethodHandler handler = handlers.get(method);
 
-            //// Treat all errors happens here as INTERNAL_SERVER_ERROR 500
-            //try {
-                // executing RPC
-                jrpcData = handler.apply(params);
+            // executing RPC
+            jrpcResponse = handler.apply(jrpcParams);
 
-                // all going ok, prepare response
-                httpResponse = new HttpResponseJRPC(jrpcData);
-                httpResponse.setStatus(HttpStatus.OK);
-            //}
-            //catch (Exception e) {
-            //    throw new RuntimeException(e);
-            //}
+            // all going ok, prepare response
+            httpResponse = new HttpResponseJRPC(jrpcResponse);
+            httpResponse.setStatus(HttpStatus.OK);
 
         }
         catch (IllegalArgumentException | JsonProcessingException e) {
@@ -166,7 +163,19 @@ public class ApiController {
         // add request id (if have one)
         httpResponse.setId(id);
 
-        return new ResponseEntity<String>("лялик ллик лялик !!!!"/*httpResponse*/, httpResponse.getStatus());
+        // Result serialization
+        try {
+
+            httpStatus = httpResponse.getStatus();
+            // jsonObject to String
+            result = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(httpResponse);
+        } catch (JsonProcessingException e) {
+            log.error("Can't serialize httpResponse to json", e);
+            httpResponse = new HttpResponseError(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(httpResponse, httpResponse.getStatus());
+        }
+
+        return new ResponseEntity<>(result, httpStatus);
     }
 
     // =================================================================================================
@@ -185,7 +194,7 @@ public class ApiController {
             Map<String,Object> beans = context.getBeansWithAnnotation(JrpcController.class);
             //beans.keySet().forEach(System.out::println);
 
-             // https://stackoverflow.com/questions/27929965/find-method-level-custom-annotation-in-a-spring-context
+            // https://stackoverflow.com/questions/27929965/find-method-level-custom-annotation-in-a-spring-context
             for (Map.Entry<String, Object> entry : beans.entrySet()) {
 
                 Object bean = entry.getValue();
@@ -203,7 +212,7 @@ public class ApiController {
 
                         JrpcMethodHandler handler = jsonNode -> {
                             try {
-                                return (JrpcData) method.invoke(bean, jsonNode);
+                                return (AbstractDto)method.invoke(bean, jsonNode);
                             } catch (IllegalAccessException | InvocationTargetException e) {
 
                                 // выбрасываем наверх причину InvocationTargetException -
@@ -274,13 +283,13 @@ public class ApiController {
 
     }
 
-    
 
-    private JrpcData foo(JsonNode node) {
-        System.out.println("Ololo!!!");
 
-        return null;
-    }
+//    private JrpcData foo(JsonNode node) {
+//        System.out.println("Ololo!!!");
+//
+//        return null;
+//    }
 
 
 
